@@ -39,10 +39,6 @@ namespace CaesarsCipher
             //Get shifts for numbers and letters
             int numberShift = shift % 10;
             int letterShift = shift % 26;
-            //Set arrays
-            char[] lowerCase = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-            char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-            char[] numbers = "0123456789".ToCharArray();
             string cipherText = "";
 
             if (shift == 0)  {return text;}
@@ -52,32 +48,26 @@ namespace CaesarsCipher
                 //Check if charater is lowerCase
                 if (text[i] >= 'a' && text[i] <= 'z')
                 {
-                    int index = Array.IndexOf(lowerCase, text[i]);
-                    index += letterShift;
-                    if (index < 0) { index += 26;}
-                    if (index > 25) { index -= 26;}
-
-                    cipherText += lowerCase[index];
+                    int temp = Convert.ToInt32(text[i]) + letterShift;
+                    if (temp < 97) { temp += 26;}
+                    if (temp > 122) { temp -= 26;}
+                    cipherText += Convert.ToChar(temp);
                 }
                 //Check if charater is upperCase.
                 else if (text[i] >= 'A' && text[i] <= 'Z')
                 {
-                    int index = Array.IndexOf(upperCase, text[i]);
-                    index += letterShift;
-                    if (index < 0) { index += 26; }
-                    if (index > 25) { index -= 26; }
-
-                    cipherText += upperCase[index];
+                    int temp = Convert.ToInt32(text[i]) + letterShift;
+                    if (temp < 65) { temp += 26; }
+                    if (temp > 90) { temp -= 26; }
+                    cipherText += Convert.ToChar(temp);
                 }
                 //Check if charater is number 0-9.
                 else if (text[i] >= '0' && text[i] <= '9')
                 {
-                    int index = Array.IndexOf(numbers, text[i]);
-                    index += numberShift;
-                    if (index < 0) { index += 10; }
-                    if (index > 9) { index -= 10; }
-
-                    cipherText += numbers[index];
+                    int temp = Convert.ToInt32(text[i]) + numberShift;
+                    if (temp < 48) { temp += 10; }
+                    if (temp > 57) { temp -= 10; }
+                    cipherText += Convert.ToChar(temp); ;
                 }
                 //Otherwise, do nothing to it.
                 else
